@@ -519,6 +519,107 @@ function buildSvg(hole){
     }
   }
 
+  // ── NEW SHAPES ─────────────────────────────────────────────────────────────
+
+  else if(s==='par3Island'){
+    // Full water background
+    p.push(waterRect(0,48,W,420));
+    p.push(wLabel(cx,390));
+    // Narrow fairway strip at tee end
+    p.push(fw(cx-28,355,56,90,6));
+    // Island: grassy surround + green
+    p.push(`<ellipse cx="${cx}" cy="145" rx="56" ry="42" fill="#3d7a52" opacity="0.95"/>`);
+    p.push(greenEl(cx,143,36,26)); p.push(flag(cx+14,143));
+    // Thin walkway/bridge
+    p.push(`<rect x="${cx-7}" y="185" width="14" height="88" fill="#4a6e40" opacity="0.75"/>`);
+    if(hz.includes('bunkerGreenLeft'))  p.push(bunker(cx-62,146,14,9));
+    if(hz.includes('bunkerGreenRight')) p.push(bunker(cx+62,146,14,9));
+    if(hz.includes('bunkerFront'))      p.push(bunker(cx,180,18,9));
+    p.push(`<text x="${cx}" y="46" text-anchor="middle" fill="#ff8888" font-size="9" font-weight="700">ISLAND GREEN</text>`);
+    p.push(teeBox(cx,435));
+    p.push(dash(cx,427,cx,193)); p.push(shotMark(cx,189,1,'#3d9e56'));
+    p.push(yLbl(cx+22,203,sh[0].dist+'y'));
+  }
+
+  else if(s==='par5WaterRight'){
+    // Water right side
+    p.push(waterRect(cx+32,48,W-cx-12,430));
+    p.push(wLabel(W-54,270));
+    // Fairway left side
+    p.push(`<rect x="18" y="76" width="116" height="392" rx="6" fill="#3d7a52" opacity="0.9"/>`);
+    p.push(greenEl(76,64,40,24)); p.push(flag(88,64));
+    if(hz.includes('bunkerGreenLeft'))  p.push(bunker(34,68,13,8));
+    if(hz.includes('bunkerGreenRight')) p.push(bunker(118,68,13,8));
+    if(hz.includes('bunkerLeft'))       p.push(bunker(20,318,14,9));
+    if(hz.includes('bunkerFairwayMid')) p.push(bunker(76,238,18,11));
+    if(hz.includes('bunkerFairwayLeft'))p.push(bunker(22,198,13,9));
+    p.push(`<text x="76" y="430" text-anchor="middle" fill="#e0c060" font-size="8" font-weight="700">STAY LEFT</text>`);
+    p.push(teeBox(76,464));
+    if(sh.length===2){
+      p.push(dash(76,456,70,300)); p.push(shotMark(70,300,1));
+      p.push(yLbl(44,313,sh[0].dist+'y'));
+      p.push(dash(70,288,76,88)); p.push(shotMark(76,88,2));
+      p.push(yLbl(50,100,sh[1].dist+'y'));
+    } else {
+      p.push(dash(76,456,70,358)); p.push(shotMark(70,358,1));
+      p.push(yLbl(44,371,sh[0].dist+'y'));
+      p.push(dash(70,346,72,232)); p.push(shotMark(72,232,2));
+      p.push(yLbl(46,245,sh[1].dist+'y'));
+      p.push(dash(72,220,76,88)); p.push(shotMark(76,88,3));
+      p.push(yLbl(50,100,sh[2].dist+'y'));
+    }
+  }
+
+  else if(s==='par4SharpDoglegLeft'){
+    // Near-90 degree left dogleg — fairway runs straight down then turns hard left
+    p.push(`<path d="M ${cx-38} 470 L ${cx-38} 282 L 38 282 L 38 70 L 98 70 L 98 282 L ${cx+38} 282 L ${cx+38} 470 Z" fill="#3d7a52" opacity="0.9"/>`);
+    p.push(greenEl(68,58,38,22)); p.push(flag(80,58));
+    if(hz.includes('bunkerCornerLeft'))    p.push(bunker(cx-42,268,18,12));
+    if(hz.includes('bunkerCornerOutside')) p.push(bunker(52,296,16,10));
+    if(hz.includes('bunkerGreenLeft'))     p.push(bunker(28,62,13,8));
+    if(hz.includes('bunkerGreenRight'))    p.push(bunker(110,62,13,8));
+    if(hz.includes('bunkerRight'))         p.push(bunker(cx+56,380,15,10));
+    p.push(teeBox(cx,478));
+    if(sh.length===2){
+      p.push(dash(cx,470,cx-6,300)); p.push(shotMark(cx-6,300,1));
+      p.push(yLbl(cx+18,314,sh[0].dist+'y'));
+      p.push(dash(cx-6,288,68,82)); p.push(shotMark(68,82,2));
+      p.push(yLbl(42,94,sh[1].dist+'y'));
+    } else {
+      p.push(dash(cx,470,cx-4,355)); p.push(shotMark(cx-4,355,1));
+      p.push(yLbl(cx+20,368,sh[0].dist+'y'));
+      p.push(dash(cx-4,343,cx-18,294)); p.push(shotMark(cx-18,294,2));
+      p.push(yLbl(cx+6,308,sh[1].dist+'y'));
+      p.push(dash(cx-18,282,68,82)); p.push(shotMark(68,82,3));
+      p.push(yLbl(42,94,sh[2].dist+'y'));
+    }
+  }
+
+  else if(s==='par4SharpDoglegRight'){
+    // Near-90 degree right dogleg
+    p.push(`<path d="M ${cx-38} 470 L ${cx-38} 282 L ${W-38} 282 L ${W-38} 70 L ${W-98} 70 L ${W-98} 282 L ${cx+38} 282 L ${cx+38} 470 Z" fill="#3d7a52" opacity="0.9"/>`);
+    p.push(greenEl(252,58,38,22)); p.push(flag(264,58));
+    if(hz.includes('bunkerCornerRight'))   p.push(bunker(cx+42,268,18,12));
+    if(hz.includes('bunkerCornerOutside')) p.push(bunker(268,296,16,10));
+    if(hz.includes('bunkerGreenLeft'))     p.push(bunker(212,62,13,8));
+    if(hz.includes('bunkerGreenRight'))    p.push(bunker(294,62,13,8));
+    if(hz.includes('bunkerLeft'))          p.push(bunker(cx-56,380,15,10));
+    p.push(teeBox(cx,478));
+    if(sh.length===2){
+      p.push(dash(cx,470,cx+6,300)); p.push(shotMark(cx+6,300,1));
+      p.push(yLbl(cx+30,314,sh[0].dist+'y'));
+      p.push(dash(cx+6,288,252,82)); p.push(shotMark(252,82,2));
+      p.push(yLbl(278,94,sh[1].dist+'y'));
+    } else {
+      p.push(dash(cx,470,cx+4,355)); p.push(shotMark(cx+4,355,1));
+      p.push(yLbl(cx+28,368,sh[0].dist+'y'));
+      p.push(dash(cx+4,343,cx+18,294)); p.push(shotMark(cx+18,294,2));
+      p.push(yLbl(cx+42,308,sh[1].dist+'y'));
+      p.push(dash(cx+18,282,252,82)); p.push(shotMark(252,82,3));
+      p.push(yLbl(278,94,sh[2].dist+'y'));
+    }
+  }
+
   return mkSvg(p.join(''));
 }
 
