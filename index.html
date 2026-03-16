@@ -395,12 +395,19 @@ function buildSvg(hole){
     if(hz.includes('bunkerGreenLeft'))     p.push(bunker(52,76,13,8));
     if(hz.includes('bunkerGreenRight'))    p.push(bunker(118,76,13,8));
     p.push(teeBox(cx,488));
-    p.push(dash(cx,480,cx-6,355)); p.push(shotMark(cx-6,355,1));
-    p.push(yLbl(cx+18,368,sh[0].dist+'y'));
-    p.push(dash(cx-6,343,cx-16,212)); p.push(shotMark(cx-16,212,2));
-    p.push(yLbl(cx+8,226,sh[1].dist+'y'));
-    p.push(dash(cx-16,200,85,95)); p.push(shotMark(85,95,3));
-    p.push(yLbl(58,107,sh[2].dist+'y'));
+    if(sh.length===2){
+      p.push(dash(cx,480,cx-10,295)); p.push(shotMark(cx-10,295,1));
+      p.push(yLbl(cx+18,310,sh[0].dist+'y'));
+      p.push(dash(cx-10,283,85,95)); p.push(shotMark(85,95,2));
+      p.push(yLbl(58,107,sh[1].dist+'y'));
+    } else {
+      p.push(dash(cx,480,cx-6,355)); p.push(shotMark(cx-6,355,1));
+      p.push(yLbl(cx+18,368,sh[0].dist+'y'));
+      p.push(dash(cx-6,343,cx-16,212)); p.push(shotMark(cx-16,212,2));
+      p.push(yLbl(cx+8,226,sh[1].dist+'y'));
+      p.push(dash(cx-16,200,85,95)); p.push(shotMark(85,95,3));
+      p.push(yLbl(58,107,sh[2].dist+'y'));
+    }
   }
 
   else if(s==='par3Long'){
@@ -424,12 +431,19 @@ function buildSvg(hole){
     if(hz.includes('bunkerGreenRight')) p.push(bunker(cx+36,76,13,8));
     p.push(`<text x="${cx-52}" y="400" text-anchor="middle" fill="#e0c060" font-size="8" font-weight="700">GO LEFT</text>`);
     p.push(teeBox(cx-6,466));
-    p.push(dash(cx-6,458,cx-10,345)); p.push(shotMark(cx-10,345,1));
-    p.push(yLbl(cx-38,358,sh[0].dist+'y'));
-    p.push(dash(cx-10,333,cx-14,215)); p.push(shotMark(cx-14,215,2));
-    p.push(yLbl(cx-42,228,sh[1].dist+'y'));
-    p.push(dash(cx-14,203,cx-4,96)); p.push(shotMark(cx-4,96,3));
-    p.push(yLbl(cx-32,108,sh[2].dist+'y'));
+    if(sh.length===2){
+      p.push(dash(cx-6,458,cx-10,345)); p.push(shotMark(cx-10,345,1));
+      p.push(yLbl(cx-38,358,sh[0].dist+'y'));
+      p.push(dash(cx-10,333,cx-4,96)); p.push(shotMark(cx-4,96,2));
+      p.push(yLbl(cx-32,108,sh[1].dist+'y'));
+    } else {
+      p.push(dash(cx-6,458,cx-10,345)); p.push(shotMark(cx-10,345,1));
+      p.push(yLbl(cx-38,358,sh[0].dist+'y'));
+      p.push(dash(cx-10,333,cx-14,215)); p.push(shotMark(cx-14,215,2));
+      p.push(yLbl(cx-42,228,sh[1].dist+'y'));
+      p.push(dash(cx-14,203,cx-4,96)); p.push(shotMark(cx-4,96,3));
+      p.push(yLbl(cx-32,108,sh[2].dist+'y'));
+    }
   }
 
   else if(s==='par5Straight'){
@@ -490,12 +504,19 @@ function buildSvg(hole){
     if(hz.includes('bunkerGreenRight')) p.push(bunker(272,72,14,9));
     p.push(`<text x="${cx+40}" y="405" text-anchor="middle" fill="#e0c060" font-size="8" font-weight="700">STAY RIGHT</text>`);
     p.push(teeBox(cx+18,466));
-    p.push(dash(cx+18,458,cx+28,315)); p.push(shotMark(cx+28,315,1));
-    p.push(yLbl(cx+54,328,sh[0].dist+'y'));
-    p.push(dash(cx+28,303,cx+36,192)); p.push(shotMark(cx+36,192,2));
-    p.push(yLbl(cx+62,205,sh[1].dist+'y'));
-    p.push(dash(cx+36,180,232,94)); p.push(shotMark(232,94,3));
-    p.push(yLbl(258,106,sh[2].dist+'y'));
+    if(sh.length===2){
+      p.push(dash(cx+18,458,cx+28,315)); p.push(shotMark(cx+28,315,1));
+      p.push(yLbl(cx+54,328,sh[0].dist+'y'));
+      p.push(dash(cx+28,303,232,94)); p.push(shotMark(232,94,2));
+      p.push(yLbl(258,106,sh[1].dist+'y'));
+    } else {
+      p.push(dash(cx+18,458,cx+28,315)); p.push(shotMark(cx+28,315,1));
+      p.push(yLbl(cx+54,328,sh[0].dist+'y'));
+      p.push(dash(cx+28,303,cx+36,192)); p.push(shotMark(cx+36,192,2));
+      p.push(yLbl(cx+62,205,sh[1].dist+'y'));
+      p.push(dash(cx+36,180,232,94)); p.push(shotMark(232,94,3));
+      p.push(yLbl(258,106,sh[2].dist+'y'));
+    }
   }
 
   return mkSvg(p.join(''));
